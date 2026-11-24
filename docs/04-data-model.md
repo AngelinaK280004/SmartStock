@@ -1,5 +1,3 @@
-
-```markdown
 # Модель данных (ERD)
 
 Модель спроектирована на основе процессов и требований. Иерархия склада детализирована до ячейки — это необходимо для визуализации и поиска товара.
@@ -11,8 +9,8 @@ erDiagram
     SHELVES ||--o{ PRODUCTS : stores
     PRODUCTS ||--o{ TRANSACTIONS : has
     USERS ||--o{ TRANSACTIONS : performs
-    USERS }|--|| ROLES : has
-    WAREHOUSES ||--o{ WAREHOUSE_CONFIGS : configured_by
+    ROLES ||--o{ USERS : "assigned to"
+    WAREHOUSES ||--o{ WAREHOUSE_CONFIGS : "configured by"
 
     WAREHOUSES {
         int id PK
@@ -20,6 +18,7 @@ erDiagram
         string address
     }
     WAREHOUSE_CONFIGS {
+        int id PK
         int warehouse_id FK
         int racks_count
         int shelves_per_rack
@@ -49,7 +48,7 @@ erDiagram
         int id PK
         int product_id FK
         int user_id FK
-        string type "receipt|move|ship|inventory"
+        string type
         decimal quantity
         datetime created_at
     }
@@ -60,5 +59,7 @@ erDiagram
     }
     ROLES {
         int id PK
-        string code "director|receiving|storage|shipping|worker|driver"
+        string code
+        string name
     }
+```
